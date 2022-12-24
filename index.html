@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Bac à sable</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        font-family: "Josefin Sans", sans-serif;
+      }
+      h1 {
+        position: absolute;
+        z-index: 2;
+        top: 16%;
+        text-align: center;
+        width: 50%;
+        min-width: 400px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-transform: uppercase;
+        letter-spacing: 0.6rem;
+        mix-blend-mode: difference;
+        color: rgb(255, 113, 78);
+        font-size: 4.5rem;
+        text-shadow: 2px 2px 2px #333;
+        line-height: 6rem;
+        user-select: none;
+      }
+      video {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+      }
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+      /* custmm bullets style */
+      .swiper-pagination-bullet {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #000;
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .swiper-pagination-bullet-active {
+        color: #fff;
+        background: orange !important;
+      }
+
+      canvas {
+        display: inline;
+      }
+      .wrapper {
+        transform: scale(0.8);
+        display: flex;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+      /* put #drawing in bottom right  */
+      svg {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="firstContainer"></div>
+    <h1>Live what you dream</h1>
+    <span id="firstContainer">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div
+            class="swiper-slide"
+            style="background: url(./media/sea1.jpg) center/cover"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background: url(./media/sea2.jpg) center/cover"
+          ></div>
+          <div
+            class="swiper-slide"
+            style="background: url(./media/sea3.jpg) center/cover"
+          ></div>
+          <div class="swiper-slide">
+            <video
+              src="./media/beach.mp4"
+              id="video"
+              autoplay
+              loop
+              muted
+            ></video>
+          </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </span>
+    <br />
+
+    <div class="wrapper">
+      <canvas data-aos="flip-left" id="bars"></canvas>
+      <canvas data-aos="flip-right" id="donut"></canvas>
+    </div>
+    <br />
+    <hr />
+
+    <div class="wrapper">
+      <canvas
+        data-aos="fade-right"
+        data-aos-duration="1000"
+        id="lines"
+      ></canvas>
+      <canvas data-aos="fade-left" data-aos-duration="1000" id="pie"></canvas>
+    </div>
+    <div id="drawing">
+      <svg width="100" height="100">
+        <g
+          fill="none"
+          fill-rule="evenodd"
+          stroke="currentColor"
+          stroke-width="1"
+          class="lines"
+        >
+          <path
+            d="M0.601837 23.5764C0.753312 21.9101 2.26473 20.4588 3.12824 19.1312C4.66458 16.769 6.20612 14.4376 7.44552 11.9037C8.90155 8.92695 10.3948 4.15726 8.22903 1.15849C6.26878 -1.5557 4.87842 6.5117 4.7912 7.34659C4.47693 10.3545 4.79863 13.5046 5.07901 16.5088C5.25831 18.4298 5.22679 21.3742 6.07039 23.1606C6.53387 24.1421 7.76255 22.7679 8.08512 22.2972C9.03227 20.9148 9.54471 19.1817 9.74807 17.5322C9.87513 16.5016 10.0103 14.4893 8.66076 14.1423C7.35608 13.8068 7.48637 16.8515 7.52547 17.5162C7.67838 20.1156 10.5514 20.844 11.9387 18.4916C12.7892 17.0494 12.6732 15.2949 12.978 13.6946C13.2447 12.2945 13.5575 15.2354 13.5537 15.5174C13.5272 17.4514 13.4201 19.6131 12.978 21.4977C12.9166 21.7597 11.2962 24.6293 11.0273 24.0241C10.4475 22.7195 13.2482 20.8926 14.1293 20.6022C14.8833 20.3537 18.6181 19.9859 18.0948 21.8175C17.9544 22.3089 15.8512 22.3241 15.5364 22.0093C14.9186 21.3916 17.2617 22.287 18.1268 22.4091C20.0651 22.6827 22.0341 22.778 23.9631 22.3771C24.9709 22.1677 26.3431 21.8249 26.7134 20.7142C26.8303 20.3635 26.6329 19.6381 27.1931 19.7548C29.2311 20.1794 32.8232 21.0639 34.2446 18.7474C34.6581 18.0735 33.3797 17.971 33.0614 18.0119C32.0072 18.147 31.025 18.8671 30.3751 19.6748C29.0322 21.3438 29.286 24.7096 31.9741 22.6809C33.606 21.4493 34.591 19.3275 35.6198 17.6281C37.3124 14.8321 38.8946 11.8824 40.9284 9.31335C43.1545 6.50141 45.9392 4.25304 49.1153 2.59758C49.3734 2.46303 54.7935 0.157312 54.0401 1.3024C52.6657 3.3915 50.3323 5.14051 48.5556 6.8509C45.416 9.87334 42.229 12.8844 39.3454 16.157C37.8525 17.8514 35.1189 20.6142 35.3959 23.1766C35.6711 25.7222 39.9511 25.9993 41.7279 26.2307C42.9108 26.3847 59.4858 26.9642 58.2935 23.8642C57.3318 21.3638 53.0352 22.3179 51.2579 22.7129"
+            stroke="black"
+            stroke-linecap="round"
+          />
+        </g>
+      </svg>
+    </div>
+    <br />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script>
+      var swiper = new Swiper(".swiper", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          dynamicBullets: true,
+          clickable: true,
+        },
+      });
+
+      const labels = {
+        Red: 12,
+        Blue: 19,
+        Yellow: 3,
+        Green: 5,
+        Purple: 2,
+        Orange: 3,
+      };
+
+      let barChart = new Chart(document.getElementById("bars"), {
+        type: "bar",
+        data: {
+          labels: Object.keys(labels),
+          datasets: [
+            {
+              label: "# of Votes",
+              data: Object.values(labels),
+              backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+              borderColor: ["rgba(255, 99, 132, 1)"],
+              hoverBorderWidth: 3,
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+
+      let donutChart = new Chart(document.getElementById("donut"), {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(labels),
+          datasets: [
+            {
+              label: "# of Votes",
+              data: Object.values(labels),
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              hoverBorderWidth: 3,
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+
+      let lineChart = new Chart(document.getElementById("lines"), {
+        type: "line",
+        data: {
+          labels: Object.keys(labels),
+          datasets: [
+            {
+              label: "# of Votes",
+              data: Object.values(labels),
+              backgroundColor: ["rgba(255, 255, 159, 0.2)"],
+              borderColor: ["rgba(255, 0, 132, 1)"],
+              hoverBorderWidth: 3,
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+
+      let pieChart = new Chart(document.getElementById("pie"), {
+        type: "pie",
+        data: {
+          labels: Object.keys(labels),
+          datasets: [
+            {
+              label: "# of Votes",
+              data: Object.values(labels),
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              hoverBorderWidth: 3,
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+      anime({
+        targets: "#drawing .lines path",
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: "easeInOutSine",
+        duration: 1500,
+        delay: function (el, i) {
+          return i * 250;
+        },
+        direction: "alternate",
+        loop: true,
+      });
+    </script>
+  </body>
+</html>
